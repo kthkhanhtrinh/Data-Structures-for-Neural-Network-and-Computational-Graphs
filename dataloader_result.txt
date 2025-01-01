@@ -1,0 +1,372 @@
+############################################
+#CASE: data WITHOUT label
+############################################
+ORIGINAL data and label:
+X.shape: (10, 4)
+X: 
+{{ 0,  1,  2,  3},
+ { 4,  5,  6,  7},
+ { 8,  9, 10, 11},
+ {12, 13, 14, 15},
+ {16, 17, 18, 19},
+ {20, 21, 22, 23},
+ {24, 25, 26, 27},
+ {28, 29, 30, 31},
+ {32, 33, 34, 35},
+ {36, 37, 38, 39}}
+t.shape: ()
+t: 
+0
+=================================
+Loading (1): with shuffle=false:
+################################
+batch_idx:1
+(data.shape, label.shape): (3, 4), ()
+data:
+{{ 0,  1,  2,  3},
+ { 4,  5,  6,  7},
+ { 8,  9, 10, 11}}
+label:
+0
+batch_idx:2
+(data.shape, label.shape): (3, 4), ()
+data:
+{{12, 13, 14, 15},
+ {16, 17, 18, 19},
+ {20, 21, 22, 23}}
+label:
+0
+batch_idx:3
+(data.shape, label.shape): (4, 4), ()
+data:
+{{24, 25, 26, 27},
+ {28, 29, 30, 31},
+ {32, 33, 34, 35},
+ {36, 37, 38, 39}}
+label:
+0
+
+
+Loading (2): with shuffle=true + no seed (seed < 0):
+when seed < 0: DO NOT call xt::random:seed
+################################
+batch_idx:1
+(data.shape, label.shape): (3, 4), ()
+data:
+{{ 8,  9, 10, 11},
+ {36, 37, 38, 39},
+ {24, 25, 26, 27}}
+label:
+0
+batch_idx:2
+(data.shape, label.shape): (3, 4), ()
+data:
+{{12, 13, 14, 15},
+ {16, 17, 18, 19},
+ { 0,  1,  2,  3}}
+label:
+0
+batch_idx:3
+(data.shape, label.shape): (4, 4), ()
+data:
+{{20, 21, 22, 23},
+ {28, 29, 30, 31},
+ { 4,  5,  6,  7},
+ {32, 33, 34, 35}}
+label:
+0
+
+
+Loading (3): with shuffle=true + no seed (seed < 0):
+when seed < 0: DO NOT call xt::random:seed
+################################
+batch_idx:1
+(data.shape, label.shape): (3, 4), ()
+data:
+{{32, 33, 34, 35},
+ {20, 21, 22, 23},
+ {28, 29, 30, 31}}
+label:
+0
+batch_idx:2
+(data.shape, label.shape): (3, 4), ()
+data:
+{{36, 37, 38, 39},
+ { 8,  9, 10, 11},
+ {24, 25, 26, 27}}
+label:
+0
+batch_idx:3
+(data.shape, label.shape): (4, 4), ()
+data:
+{{ 4,  5,  6,  7},
+ {16, 17, 18, 19},
+ { 0,  1,  2,  3},
+ {12, 13, 14, 15}}
+label:
+0
+
+
+NOTE: Loading (2) and (3): DO NOT CALL seed; so results are different.
+
+
+Loading (4): with shuffle=true + with seed (seed >= 0):
+when seed >= 0: CALL xt::random:seed
+################################
+batch_idx:1
+(data.shape, label.shape): (3, 4), ()
+data:
+{{ 4,  5,  6,  7},
+ {16, 17, 18, 19},
+ { 0,  1,  2,  3}}
+label:
+0
+batch_idx:2
+(data.shape, label.shape): (3, 4), ()
+data:
+{{12, 13, 14, 15},
+ {36, 37, 38, 39},
+ {32, 33, 34, 35}}
+label:
+0
+batch_idx:3
+(data.shape, label.shape): (4, 4), ()
+data:
+{{28, 29, 30, 31},
+ { 8,  9, 10, 11},
+ {24, 25, 26, 27},
+ {20, 21, 22, 23}}
+label:
+0
+Loading (5): with shuffle=true + with seed (seed >= 0):
+when seed >= 0: CALL xt::random:seed
+################################
+batch_idx:1
+(data.shape, label.shape): (3, 4), ()
+data:
+{{ 4,  5,  6,  7},
+ {16, 17, 18, 19},
+ { 0,  1,  2,  3}}
+label:
+0
+batch_idx:2
+(data.shape, label.shape): (3, 4), ()
+data:
+{{12, 13, 14, 15},
+ {36, 37, 38, 39},
+ {32, 33, 34, 35}}
+label:
+0
+batch_idx:3
+(data.shape, label.shape): (4, 4), ()
+data:
+{{28, 29, 30, 31},
+ { 8,  9, 10, 11},
+ {24, 25, 26, 27},
+ {20, 21, 22, 23}}
+label:
+0
+NOTE: Loading (4) and (5): CALL xt::random::seed and use SAME seed => same results.
+
+
+############################################
+#CASE: data WITH label
+WHEN label is available: 
+	Assignment-1: ASSUME that dimension-0 on data = dimension-0 on label
+############################################
+ORIGINAL data and label:
+X.shape: (10, 4)
+X: 
+{{ 0,  1,  2,  3},
+ { 4,  5,  6,  7},
+ { 8,  9, 10, 11},
+ {12, 13, 14, 15},
+ {16, 17, 18, 19},
+ {20, 21, 22, 23},
+ {24, 25, 26, 27},
+ {28, 29, 30, 31},
+ {32, 33, 34, 35},
+ {36, 37, 38, 39}}
+t.shape: (10,)
+t: 
+{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}
+=================================
+Loading (1): with shuffle=false:
+################################
+batch_idx:1
+(data.shape, label.shape): (3, 4), (3,)
+data:
+{{ 0,  1,  2,  3},
+ { 4,  5,  6,  7},
+ { 8,  9, 10, 11}}
+label:
+{0, 1, 2}
+batch_idx:2
+(data.shape, label.shape): (3, 4), (3,)
+data:
+{{12, 13, 14, 15},
+ {16, 17, 18, 19},
+ {20, 21, 22, 23}}
+label:
+{3, 4, 5}
+batch_idx:3
+(data.shape, label.shape): (4, 4), (4,)
+data:
+{{24, 25, 26, 27},
+ {28, 29, 30, 31},
+ {32, 33, 34, 35},
+ {36, 37, 38, 39}}
+label:
+{6, 7, 8, 9}
+
+
+Loading (2): with shuffle=true + no seed (seed < 0):
+when seed < 0: DO NOT call xt::random:seed
+################################
+batch_idx:1
+(data.shape, label.shape): (3, 4), (3,)
+data:
+{{ 8,  9, 10, 11},
+ {12, 13, 14, 15},
+ { 0,  1,  2,  3}}
+label:
+{2, 3, 0}
+batch_idx:2
+(data.shape, label.shape): (3, 4), (3,)
+data:
+{{20, 21, 22, 23},
+ {24, 25, 26, 27},
+ {28, 29, 30, 31}}
+label:
+{5, 6, 7}
+batch_idx:3
+(data.shape, label.shape): (4, 4), (4,)
+data:
+{{16, 17, 18, 19},
+ {32, 33, 34, 35},
+ {36, 37, 38, 39},
+ { 4,  5,  6,  7}}
+label:
+{4, 8, 9, 1}
+
+
+Loading (3): with shuffle=true + no seed (seed < 0):
+when seed < 0: DO NOT call xt::random:seed
+################################
+batch_idx:1
+(data.shape, label.shape): (3, 4), (3,)
+data:
+{{24, 25, 26, 27},
+ {12, 13, 14, 15},
+ {36, 37, 38, 39}}
+label:
+{6, 3, 9}
+batch_idx:2
+(data.shape, label.shape): (3, 4), (3,)
+data:
+{{32, 33, 34, 35},
+ { 8,  9, 10, 11},
+ { 4,  5,  6,  7}}
+label:
+{8, 2, 1}
+batch_idx:3
+(data.shape, label.shape): (4, 4), (4,)
+data:
+{{16, 17, 18, 19},
+ {28, 29, 30, 31},
+ { 0,  1,  2,  3},
+ {20, 21, 22, 23}}
+label:
+{4, 7, 0, 5}
+
+
+NOTE: Loading (2) and (3): DO NOT CALL seed; so results are different.
+
+
+Loading (4): with shuffle=true + with seed (seed >= 0):
+when seed >= 0: CALL xt::random:seed
+################################
+batch_idx:1
+(data.shape, label.shape): (3, 4), (3,)
+data:
+{{ 4,  5,  6,  7},
+ {16, 17, 18, 19},
+ { 0,  1,  2,  3}}
+label:
+{1, 4, 0}
+batch_idx:2
+(data.shape, label.shape): (3, 4), (3,)
+data:
+{{12, 13, 14, 15},
+ {36, 37, 38, 39},
+ {32, 33, 34, 35}}
+label:
+{3, 9, 8}
+batch_idx:3
+(data.shape, label.shape): (4, 4), (4,)
+data:
+{{28, 29, 30, 31},
+ { 8,  9, 10, 11},
+ {24, 25, 26, 27},
+ {20, 21, 22, 23}}
+label:
+{7, 2, 6, 5}
+
+
+Loading (5): with shuffle=true + with seed (seed >= 0):
+when seed >= 0: CALL xt::random:seed
+################################
+batch_idx:1
+(data.shape, label.shape): (3, 4), (3,)
+data:
+{{ 4,  5,  6,  7},
+ {16, 17, 18, 19},
+ { 0,  1,  2,  3}}
+label:
+{1, 4, 0}
+batch_idx:2
+(data.shape, label.shape): (3, 4), (3,)
+data:
+{{12, 13, 14, 15},
+ {36, 37, 38, 39},
+ {32, 33, 34, 35}}
+label:
+{3, 9, 8}
+batch_idx:3
+(data.shape, label.shape): (4, 4), (4,)
+data:
+{{28, 29, 30, 31},
+ { 8,  9, 10, 11},
+ {24, 25, 26, 27},
+ {20, 21, 22, 23}}
+label:
+{7, 2, 6, 5}
+NOTE: Loading (4) and (5): CALL xt::random::seed and use SAME seed => same results.
+
+
+############################################
+#CASE: data WITHOUT label
+############################################
+ORIGINAL data and label:
+X.shape: (10, 4)
+X: 
+{{ 0,  1,  2,  3},
+ { 4,  5,  6,  7},
+ { 8,  9, 10, 11},
+ {12, 13, 14, 15},
+ {16, 17, 18, 19},
+ {20, 21, 22, 23},
+ {24, 25, 26, 27},
+ {28, 29, 30, 31},
+ {32, 33, 34, 35},
+ {36, 37, 38, 39}}
+t.shape: ()
+t: 
+0
+=================================
+Loading (1): with shuffle=false:
+Number of samples: 10
+batch-size: 15
+=> number of batches to be processed: 0
+################################
+NUMBER OF BATCHES PROCESSED: 0
